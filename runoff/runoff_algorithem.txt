@@ -1,0 +1,65 @@
+One such ranked choice voting system is the instant runoff system.
+In an instant runoff election, voters can rank as many candidates as they wish.
+If any candidate has a majority (more than 50%) of the first preference votes, that candidate is declared the winner of the election.
+
+If no candidate has more than 50% of the vote, then an “instant runoff” occurrs.
+The candidate who received the fewest number of votes is eliminated from the election, and anyone who originally chose that candidate as their first preference now has their second preference considered.
+
+**Effectively, this simulates what would have happened if the least popular candidate had not been in the election to begin with.**
+
+The process repeats: if no candidate has a majority of the votes, the last place candidate is eliminated, and anyone who voted for them will instead vote for their next preference (who hasn’t themselves already been eliminated).
+Once a candidate has a majority, that candidate is declared the winner.
+
+ main.cpp function
+
+Step 01 -  Determining the number of candidates and the number of voters.
+Step 02 - The main voting loop begins, giving every voter a chance to vote.
+        As the voter enters their preferences, the "vote" function is called to keep track of all of the preferences.
+        If at any point, the ballot is deemed to be invalid, the program exits.
+Step 03 - Once all of the votes are in, another loop begins:
+        this one’s going to keep looping through the runoff process of checking for a winner and eliminating the last place candidate
+         until there is a winner.
+
+         3.1 - The first call here is to a function called "tabulate",
+         which should look at all of the voters’ preferences and compute the current vote totals,
+         by looking at each voter’s top choice candidate who hasn’t yet been eliminated.
+
+         3.2 -  Next, the "print_winner" function should print out the winner if there is one; if there is, the program is over.
+
+         3.2.1 - But otherwise, the program needs to determine the fewest number of votes anyone still in the election received (via a call to "find_min").
+
+         3.2.2 - If it turns out that everyone in the election is tied with the same number of votes (as determined by the "is_tie" function), the election is declared a tie;
+         otherwice
+         the last-place candidate (or candidates) is eliminated from the election via a call to the "eliminate" function.
+
+
+Breakdown of the voting system
+
+
+Let's break down the scenario and calculate the election winner step-by-step:
+
+Scenario
+Candidates: A, B, C
+Number of Voters: 3
+
+Ranked Preferences:
+
+C       B       A
+A       C       B
+B       A       C
+
+Round 1 : Count First-Choice Votes
+
+Each voter casts their vote for their Rank 1 candidate:
+
+A: 1 vote (Voter 2)
+B: 1 vote (Voter 3)
+C: 1 vote (Voter 1)
+No candidate has a majority:
+
+Majority threshold = Total voters/2=3/2=1.5 (i.e., 2 votes needed).
+Since no candidate has more than 1 vote, we proceed to eliminate the candidate with the fewest votes.
+
+Round 2 : Eliminate the Candidate with the Fewest Votes
+
+All candidates have the same number of votes (1 each).
