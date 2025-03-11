@@ -17,8 +17,8 @@ typedef struct node
 } node;
 
 // TODO: Choose number of buckets in hash table
-const unsigned int N = 26;
-
+//static const unsigned int N = 26;
+#define N 26
 // Hash table
 node *table[N];
 
@@ -92,7 +92,7 @@ when inserting this node into a linked list.
  - Add a new node to the linked list.
 */
     // TODO
-    FILE* dictionary_file = fopen("/workspaces/37543415/speller/dictionaries/small", "r");
+    FILE* dictionary_file = fopen("/mnt/c/Minindu/cs50/cs50_local/speller/dictionaries/small", "r");
 
     if (!dictionary_file){
         printf("Failed to open the file.\n");
@@ -105,21 +105,23 @@ when inserting this node into a linked list.
         return 1;
     }
     while(fscanf(dictionary_file, "%s", word) == 1){
-        //printf("%s\n", word);
+        printf("%s\n", word);
         num_words++;
         node *n = malloc(sizeof(node));
         strcpy(n->word, word);
         n -> next = NULL;
 
         int index = hash(word);
+        if (index){
         (n -> next) = (table[index]); //table[index] is pointer to a node ,Address of table[index] assigned to n-> next
         table[index] = n;
-
+        }else{
+            return 1;
+        }
     };
     //printf("%i\n", num_words);
     //free(word);
     fclose(dictionary_file);
-
 
     return false;
 }
